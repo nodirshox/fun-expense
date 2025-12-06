@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 16,
-    paddingTop: 80,
+    paddingTop: 100,
   },
   simpleHeader: {
     marginBottom: 32,
@@ -242,8 +242,11 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   backIcon: {
-    fontSize: 24,
+    fontSize: 22,
     color: '#1a1a1a',
+    lineHeight: 22,
+    includeFontPadding: false,
+    textAlignVertical: 'center',
   },
   avatarSection: {
     alignItems: 'center',

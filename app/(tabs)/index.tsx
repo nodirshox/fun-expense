@@ -67,9 +67,6 @@ export default function HomeScreen() {
               <Text style={styles.greeting}>Hello,</Text>
               <Text style={styles.name}>{settings.displayName} ✨</Text>
             </View>
-            <TouchableOpacity style={styles.analyticsButton}>
-              <Text style={styles.analyticsIcon}>📊</Text>
-            </TouchableOpacity>
           </View>
 
           {/* Balance Card */}
@@ -160,22 +157,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: '#1a1a1a',
-  },
-  analyticsButton: {
-    width: 40,
-    height: 40,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
-  },
-  analyticsIcon: {
-    fontSize: 20,
   },
   balanceSection: {
     marginBottom: 24,
