@@ -10,6 +10,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { useRouter } from 'expo-router';
+import { ArrowLeft } from 'lucide-react-native';
 import { useSettings, AVATARS, CURRENCIES } from '@/hooks/useSettings';
 
 export default function ProfileScreen() {
@@ -45,9 +46,14 @@ export default function ProfileScreen() {
       <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
           {/* Header */}
-          <View style={styles.simpleHeader}>
-            <Text style={styles.headerTitle}>Profile</Text>
-            <Text style={styles.headerSubtitle}>Customize your experience</Text>
+          <View style={styles.header}>
+            <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
+              <ArrowLeft size={20} color="#1a1a1a" />
+            </TouchableOpacity>
+            <View style={styles.headerText}>
+              <Text style={styles.headerTitle}>Profile</Text>
+              <Text style={styles.headerSubtitle}>Customize your experience</Text>
+            </View>
           </View>
 
           {/* Avatar Section */}
@@ -118,11 +124,6 @@ export default function ProfileScreen() {
           </View>
         </View>
       </ScrollView>
-
-      {/* Back Button - Fixed Position */}
-      <TouchableOpacity style={styles.fixedBackButton} onPress={() => router.back()}>
-        <Text style={styles.backIcon}>←</Text>
-      </TouchableOpacity>
 
       {/* Avatar Picker Modal */}
       <Modal
@@ -209,25 +210,15 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: 16,
-    paddingTop: 100,
+    paddingTop: 60,
   },
-  simpleHeader: {
-    marginBottom: 32,
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    marginBottom: 24,
   },
-  headerTitle: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#1a1a1a',
-    marginBottom: 4,
-  },
-  headerSubtitle: {
-    fontSize: 14,
-    color: '#666',
-  },
-  fixedBackButton: {
-    position: 'absolute',
-    top: 50,
-    left: 16,
+  backButton: {
     width: 40,
     height: 40,
     backgroundColor: '#FFFFFF',
@@ -235,18 +226,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
     shadowRadius: 4,
-    elevation: 3,
-    zIndex: 10,
+    elevation: 2,
   },
-  backIcon: {
-    fontSize: 22,
+  headerText: {
+    flex: 1,
+  },
+  headerTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
     color: '#1a1a1a',
-    lineHeight: 22,
-    includeFontPadding: false,
-    textAlignVertical: 'center',
+  },
+  headerSubtitle: {
+    fontSize: 14,
+    color: '#666',
   },
   avatarSection: {
     alignItems: 'center',

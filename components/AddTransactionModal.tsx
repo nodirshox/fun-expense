@@ -315,10 +315,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   typeButtonExpenseActive: {
-    backgroundColor: '#F44336',
+    backgroundColor: '#F1635A',
   },
   typeButtonIncomeActive: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#52C5B6',
   },
   typeButtonText: {
     fontSize: 16,
@@ -374,12 +374,12 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
   },
   categoryButtonExpenseActive: {
-    backgroundColor: '#FFEBEE',
-    borderColor: '#F44336',
+    backgroundColor: '#FEE9E7',
+    borderColor: '#F1635A',
   },
   categoryButtonIncomeActive: {
-    backgroundColor: '#E8F5E9',
-    borderColor: '#4CAF50',
+    backgroundColor: '#E6F7F5',
+    borderColor: '#52C5B6',
   },
   categoryEmoji: {
     fontSize: 24,

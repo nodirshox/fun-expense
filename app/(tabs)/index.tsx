@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { StyleSheet, View, Text, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { useRouter, useFocusEffect } from 'expo-router';
+import { PieChart } from 'lucide-react-native';
 import { BalanceCard } from '@/components/BalanceCard';
 import { TransactionList } from '@/components/TransactionList';
 import { AddTransactionModal } from '@/components/AddTransactionModal';
@@ -67,6 +68,9 @@ export default function HomeScreen() {
               <Text style={styles.greeting}>Hello,</Text>
               <Text style={styles.name}>{settings.displayName} ✨</Text>
             </View>
+            <TouchableOpacity style={styles.analyticsButton} onPress={() => router.push('/analytics')}>
+              <PieChart size={20} color="#F1635A" strokeWidth={2} />
+            </TouchableOpacity>
           </View>
 
           {/* Balance Card */}
@@ -158,6 +162,19 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#1a1a1a',
   },
+  analyticsButton: {
+    width: 40,
+    height: 40,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 2,
+  },
   balanceSection: {
     marginBottom: 24,
   },
@@ -168,7 +185,7 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 28,
-    backgroundColor: '#6366f1',
+    backgroundColor: '#F1635A',
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',

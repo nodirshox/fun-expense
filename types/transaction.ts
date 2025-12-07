@@ -14,6 +14,7 @@ export interface Category {
   name: string;
   emoji: string;
   type: TransactionType;
+  color: string;
 }
 
 export interface Settings {
