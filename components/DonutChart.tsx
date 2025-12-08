@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import Svg, { Path, G, Circle } from 'react-native-svg';
+import { Shadows } from '@/constants/theme';
 
 interface DonutChartProps {
   data: Array<{
@@ -224,11 +225,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 12,
     paddingHorizontal: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 8,
+    ...Shadows.card,
     transform: [{ translateX: -50 }],
     minWidth: 120,
   },

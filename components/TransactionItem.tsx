@@ -1,6 +1,7 @@
 import { getCategoryById } from "@/data/categories";
 import { Transaction } from "@/types/transaction";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Shadows } from "@/constants/theme";
 
 interface TransactionItemProps {
   transaction: Transaction;
@@ -95,11 +96,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 16,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
+    ...Shadows.soft,
     marginBottom: 12,
   },
   iconContainer: {

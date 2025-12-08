@@ -8,9 +8,12 @@ import { AddTransactionModal } from '@/components/AddTransactionModal';
 import { useTransactions } from '@/hooks/useTransactions';
 import { useSettings } from '@/hooks/useSettings';
 import { Transaction } from '@/types/transaction';
+import { Shadows } from '@/constants/theme';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export default function HomeScreen() {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingTransaction, setEditingTransaction] = useState<Transaction | undefined>(undefined);
   const { settings, reloadSettings, loading: settingsLoading } = useSettings();
@@ -57,7 +60,7 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+      <ScrollView style={styles.scrollView} contentContainerStyle={{ paddingBottom: insets.bottom + 80 }} showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
           {/* Header */}
           <View style={styles.header}>
@@ -149,11 +152,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
+    ...Shadows.soft,
   },
   avatarEmoji: {
     fontSize: 24,
@@ -216,11 +215,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F1635A',
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 8,
+    ...Shadows.glowExpense,
   },
   fabIcon: {
     fontSize: 32,

@@ -6,6 +6,8 @@ import { useSettings } from '@/hooks/useSettings';
 import { getCategoryById } from '@/data/categories';
 import { CategoryList } from '@/components/CategoryList';
 import { DonutChart } from '@/components/DonutChart';
+import { Shadows } from '@/constants/theme';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 interface CategoryData {
   name: string;
@@ -23,6 +25,7 @@ const formatCurrency = (amount: number, symbol: string) => {
 
 export default function AnalyticsScreen() {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const { transactions, getTotalExpenses, getTotalIncome, loading: transactionsLoading } = useTransactions();
   const { settings, loading: settingsLoading } = useSettings();
 
@@ -61,7 +64,7 @@ export default function AnalyticsScreen() {
 
   return (
     <View style={styles.container}>
-      <ScrollView style={styles.scrollView} showsVerticalScrollIndicator={false}>
+      <ScrollView style={styles.scrollView} contentContainerStyle={{ paddingBottom: insets.bottom }} showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
           {/* Header */}
           <View style={styles.header}>
@@ -178,11 +181,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
+    ...Shadows.soft,
   },
   headerText: {
     flex: 1,
@@ -244,10 +243,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 16,
     padding: 16,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 8,
-    elevation: 2,
+    ...Shadows.card,
   },
 });

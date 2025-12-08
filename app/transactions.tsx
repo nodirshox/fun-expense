@@ -5,6 +5,7 @@ import { useTransactions } from "@/hooks/useTransactions";
 import { Transaction } from "@/types/transaction";
 import { useFocusEffect, useRouter } from "expo-router";
 import { ChevronDown, ChevronLeft } from "lucide-react-native";
+import { Shadows } from "@/constants/theme";
 import { useCallback, useState } from "react";
 import {
   ActivityIndicator,
@@ -16,9 +17,11 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function TransactionsScreen() {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingTransaction, setEditingTransaction] = useState<
     Transaction | undefined
@@ -136,6 +139,7 @@ export default function TransactionsScreen() {
       {/* Transactions List */}
       <ScrollView
         style={styles.scrollView}
+        contentContainerStyle={{ paddingBottom: insets.bottom }}
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.content}>
@@ -244,22 +248,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     justifyContent: "center",
     alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
+    ...Shadows.soft,
   },
   headerTextContainer: {
     flex: 1,
     paddingHorizontal: 12,
   },
   headerTitle: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "bold",
     color: "#1a1a1a",
     fontFamily: "Nunito_700Bold",
-    marginBottom: 2,
   },
   headerSubtitle: {
     fontSize: 14,
@@ -278,11 +277,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     backgroundColor: "#FFFFFF",
     borderRadius: 12,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 4,
-    elevation: 2,
+    ...Shadows.soft,
   },
   monthText: {
     fontSize: 14,

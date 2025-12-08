@@ -1,5 +1,6 @@
 import { TrendingDown, TrendingUp } from "lucide-react-native";
 import { StyleSheet, Text, View } from "react-native";
+import { Shadows } from "@/constants/theme";
 
 interface BalanceCardProps {
   balance: number;
@@ -62,11 +63,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     borderRadius: 16,
     padding: 24,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
-    shadowRadius: 8,
-    elevation: 2,
+    ...Shadows.card,
   },
   label: {
     fontSize: 14,
