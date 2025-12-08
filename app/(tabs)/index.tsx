@@ -83,12 +83,20 @@ export default function HomeScreen() {
             />
           </View>
 
-          {/* Transactions List */}
-          <TransactionList
-            transactions={transactions}
-            onPress={handleTransactionPress}
-            currencySymbol={settings.currencySymbol}
-          />
+          {/* Transactions Section */}
+          <View>
+            <View style={styles.sectionHeader}>
+              <Text style={styles.sectionTitle}>Transactions</Text>
+              <TouchableOpacity onPress={() => router.push('/transactions')}>
+                <Text style={styles.showAllText}>Show all</Text>
+              </TouchableOpacity>
+            </View>
+            <TransactionList
+              transactions={transactions.slice(0, 3)}
+              onPress={handleTransactionPress}
+              currencySymbol={settings.currencySymbol}
+            />
+          </View>
         </View>
       </ScrollView>
 
@@ -179,6 +187,24 @@ const styles = StyleSheet.create({
   },
   balanceSection: {
     marginBottom: 24,
+  },
+  sectionHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#1a1a1a',
+    fontFamily: 'Nunito_700Bold',
+  },
+  showAllText: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#F1635A',
+    fontFamily: 'Nunito_600SemiBold',
   },
   fab: {
     position: 'absolute',

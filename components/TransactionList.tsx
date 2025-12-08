@@ -1,6 +1,6 @@
-import { View, Text, StyleSheet } from 'react-native';
-import { Transaction } from '@/types/transaction';
-import { TransactionItem } from './TransactionItem';
+import { Transaction } from "@/types/transaction";
+import { StyleSheet, Text, View } from "react-native";
+import { TransactionItem } from "./TransactionItem";
 
 interface TransactionListProps {
   transactions: Transaction[];
@@ -8,7 +8,11 @@ interface TransactionListProps {
   currencySymbol: string;
 }
 
-export const TransactionList = ({ transactions, onPress, currencySymbol }: TransactionListProps) => {
+export const TransactionList = ({
+  transactions,
+  onPress,
+  currencySymbol,
+}: TransactionListProps) => {
   if (transactions.length === 0) {
     return (
       <View style={styles.emptyContainer}>
@@ -23,7 +27,6 @@ export const TransactionList = ({ transactions, onPress, currencySymbol }: Trans
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Recent Transactions</Text>
       <View style={styles.list}>
         {transactions.map((transaction) => (
           <TransactionItem
@@ -44,27 +47,27 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    fontWeight: '600',
-    color: '#1a1a1a',
+    fontWeight: "600",
+    color: "#1a1a1a",
     marginBottom: 16,
     paddingHorizontal: 4,
-    fontFamily: 'Nunito_600SemiBold',
+    fontFamily: "Nunito_600SemiBold",
   },
   list: {
     gap: 0,
   },
   emptyContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 64,
   },
   emptyIcon: {
     width: 80,
     height: 80,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: "#F5F5F5",
     borderRadius: 16,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: 16,
   },
   emptyIconText: {
@@ -72,14 +75,14 @@ const styles = StyleSheet.create({
   },
   emptyTitle: {
     fontSize: 16,
-    fontWeight: '500',
-    color: '#666',
+    fontWeight: "500",
+    color: "#666",
     marginBottom: 4,
-    fontFamily: 'Nunito_500Medium',
+    fontFamily: "Nunito_500Medium",
   },
   emptySubtitle: {
     fontSize: 14,
-    color: '#999',
-    fontFamily: 'Nunito_400Regular',
+    color: "#999",
+    fontFamily: "Nunito_400Regular",
   },
 });
