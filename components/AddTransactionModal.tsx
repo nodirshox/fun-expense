@@ -234,7 +234,8 @@ export const AddTransactionModal = ({
               style={[
                 styles.submitButton,
                 (!amount || !category) && styles.submitButtonDisabled,
-                amount && category && styles.submitButtonActive,
+                amount && category && type === 'expense' && styles.submitButtonExpenseActive,
+                amount && category && type === 'income' && styles.submitButtonIncomeActive,
               ]}
               onPress={handleSubmit}
               disabled={!amount || !category}
@@ -280,6 +281,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: '#1a1a1a',
+    fontFamily: 'Nunito_700Bold',
   },
   headerButtons: {
     flexDirection: 'row',
@@ -324,6 +326,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: '#666',
+    fontFamily: 'Nunito_600SemiBold',
   },
   typeButtonTextActive: {
     color: '#FFFFFF',
@@ -336,6 +339,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#666',
     marginBottom: 12,
+    fontFamily: 'Nunito_500Medium',
   },
   amountContainer: {
     flexDirection: 'row',
@@ -349,6 +353,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#666',
     marginRight: 8,
+    fontFamily: 'Nunito_700Bold',
   },
   amountInput: {
     flex: 1,
@@ -356,6 +361,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#1a1a1a',
     paddingVertical: 16,
+    fontFamily: 'Nunito_700Bold',
   },
   categoryGrid: {
     flexDirection: 'row',
@@ -390,6 +396,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#1a1a1a',
     textAlign: 'center',
+    fontFamily: 'Nunito_500Medium',
   },
   noteInput: {
     backgroundColor: '#F5F5F5',
@@ -398,6 +405,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     fontSize: 16,
     color: '#1a1a1a',
+    fontFamily: 'Nunito_400Regular',
   },
   submitButton: {
     paddingVertical: 16,
@@ -411,9 +419,16 @@ const styles = StyleSheet.create({
   submitButtonActive: {
     backgroundColor: '#6366f1',
   },
+  submitButtonExpenseActive: {
+    backgroundColor: '#F1635A',
+  },
+  submitButtonIncomeActive: {
+    backgroundColor: '#52C5B6',
+  },
   submitButtonText: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#FFFFFF',
+    fontFamily: 'Nunito_700Bold',
   },
 });

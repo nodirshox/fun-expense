@@ -73,12 +73,14 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     color: "#666",
     marginBottom: 4,
+    fontFamily: 'Nunito_500Medium',
   },
   balance: {
     fontSize: 36,
     fontWeight: "bold",
     color: "#1a1a1a",
     marginBottom: 24,
+    fontFamily: 'Nunito_700Bold',
   },
   statsContainer: {
     flexDirection: "row",
@@ -118,15 +120,18 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "500",
     color: "#666",
+    fontFamily: 'Nunito_500Medium',
   },
   incomeAmount: {
     fontSize: 18,
     fontWeight: "bold",
     color: "#52C5B6",
+    fontFamily: 'Nunito_700Bold',
   },
   expenseAmount: {
     fontSize: 18,
     fontWeight: "bold",
     color: "#F1635A",
+    fontFamily: 'Nunito_700Bold',
   },
 });

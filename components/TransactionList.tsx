@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     color: '#1a1a1a',
     marginBottom: 16,
     paddingHorizontal: 4,
+    fontFamily: 'Nunito_600SemiBold',
   },
   list: {
     gap: 0,
@@ -74,9 +75,11 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#666',
     marginBottom: 4,
+    fontFamily: 'Nunito_500Medium',
   },
   emptySubtitle: {
     fontSize: 14,
     color: '#999',
+    fontFamily: 'Nunito_400Regular',
   },
 });

@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, Text, ScrollView, TouchableOpacity, ActivityIndicator, TouchableWithoutFeedback } from 'react-native';
 import { useRouter } from 'expo-router';
 import { ArrowLeft } from 'lucide-react-native';
 import { useTransactions } from '@/hooks/useTransactions';
@@ -91,14 +91,17 @@ export default function AnalyticsScreen() {
                     </Text>
                   </View>
 
-                  <View style={styles.chartContainer}>
-                    <DonutChart
-                      data={expenseData}
-                      size={220}
-                      strokeWidth={40}
-                      gap={8}
-                    />
-                  </View>
+                  <TouchableWithoutFeedback>
+                    <View style={styles.chartContainer}>
+                      <DonutChart
+                        data={expenseData}
+                        size={220}
+                        strokeWidth={40}
+                        gap={8}
+                        currencySymbol={settings.currencySymbol}
+                      />
+                    </View>
+                  </TouchableWithoutFeedback>
 
                   <CategoryList
                     data={expenseData}
@@ -118,14 +121,17 @@ export default function AnalyticsScreen() {
                     </Text>
                   </View>
 
-                  <View style={styles.chartContainer}>
-                    <DonutChart
-                      data={incomeData}
-                      size={220}
-                      strokeWidth={40}
-                      gap={8}
-                    />
-                  </View>
+                  <TouchableWithoutFeedback>
+                    <View style={styles.chartContainer}>
+                      <DonutChart
+                        data={incomeData}
+                        size={220}
+                        strokeWidth={40}
+                        gap={8}
+                        currencySymbol={settings.currencySymbol}
+                      />
+                    </View>
+                  </TouchableWithoutFeedback>
 
                   <CategoryList
                     data={incomeData}
@@ -185,10 +191,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: '#1a1a1a',
+    fontFamily: 'Nunito_700Bold',
   },
   headerSubtitle: {
     fontSize: 14,
     color: '#666',
+    fontFamily: 'Nunito_400Regular',
   },
   emptyState: {
     alignItems: 'center',
@@ -201,6 +209,7 @@ const styles = StyleSheet.create({
   emptyText: {
     fontSize: 16,
     color: '#666',
+    fontFamily: 'Nunito_400Regular',
   },
   section: {
     marginBottom: 32,
@@ -215,16 +224,19 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#1a1a1a',
+    fontFamily: 'Nunito_700Bold',
   },
   expenseTotal: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#F1635A',
+    fontFamily: 'Nunito_700Bold',
   },
   incomeTotal: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#52C5B6',
+    fontFamily: 'Nunito_700Bold',
   },
   chartContainer: {
     alignItems: 'center',

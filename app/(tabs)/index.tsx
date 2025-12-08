@@ -156,11 +156,13 @@ const styles = StyleSheet.create({
   greeting: {
     fontSize: 14,
     color: '#666',
+    fontFamily: 'Nunito_400Regular',
   },
   name: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#1a1a1a',
+    fontFamily: 'Nunito_700Bold',
   },
   analyticsButton: {
     width: 40,
@@ -198,5 +200,6 @@ const styles = StyleSheet.create({
     fontSize: 32,
     color: '#FFFFFF',
     fontWeight: '300',
+    fontFamily: 'Nunito_400Regular',
   },
 });

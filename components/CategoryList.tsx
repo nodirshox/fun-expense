@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 interface CategoryData {
   name: string;
@@ -11,6 +11,7 @@ interface CategoryListProps {
   data: CategoryData[];
   total: number;
   currencySymbol: string;
+  onCategoryPress?: (item: CategoryData) => void;
 }
 
 const formatCurrency = (amount: number, symbol: string) => {
@@ -20,13 +21,20 @@ const formatCurrency = (amount: number, symbol: string) => {
   })}`;
 };
 
-export const CategoryList = ({ data, total, currencySymbol }: CategoryListProps) => {
+export const CategoryList = ({ data, total, currencySymbol, onCategoryPress }: CategoryListProps) => {
   return (
     <View style={styles.container}>
       {data.map((item, index) => {
         const percentage = total > 0 ? (item.value / total) * 100 : 0;
+        const ItemWrapper = onCategoryPress ? TouchableOpacity : View;
+
         return (
-          <View key={item.name} style={styles.item}>
+          <ItemWrapper
+            key={item.name}
+            style={styles.item}
+            onPress={onCategoryPress ? () => onCategoryPress(item) : undefined}
+            activeOpacity={0.7}
+          >
             <View style={styles.header}>
               <View style={styles.nameContainer}>
                 <Text style={styles.emoji}>{item.emoji}</Text>
@@ -43,7 +51,7 @@ export const CategoryList = ({ data, total, currencySymbol }: CategoryListProps)
               />
             </View>
             <Text style={styles.percentage}>{percentage.toFixed(1)}%</Text>
-          </View>
+          </ItemWrapper>
         );
       })}
     </View>
@@ -83,11 +91,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: '#1a1a1a',
+    fontFamily: 'Nunito_600SemiBold',
   },
   amount: {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#1a1a1a',
+    fontFamily: 'Nunito_700Bold',
   },
   progressBarContainer: {
     height: 8,
@@ -103,5 +113,6 @@ const styles = StyleSheet.create({
   percentage: {
     fontSize: 12,
     color: '#666',
+    fontFamily: 'Nunito_400Regular',
   },
 });

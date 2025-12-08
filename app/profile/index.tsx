@@ -115,12 +115,11 @@ export default function ProfileScreen() {
               </View>
             </TouchableOpacity>
 
-            {/* App Info */}
-            <View style={styles.card}>
-              <Text style={styles.cardLabel}>About</Text>
-              <Text style={styles.cardValue}>FunExpense v1.0</Text>
-              <Text style={styles.cardSubtext}>Track with joy ✨</Text>
-            </View>
+          </View>
+
+          {/* Footer */}
+          <View style={styles.footer}>
+            <Text style={styles.footerText}>FunExpense 1.0</Text>
           </View>
         </View>
       </ScrollView>
@@ -238,10 +237,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     color: '#1a1a1a',
+    fontFamily: 'Nunito_700Bold',
   },
   headerSubtitle: {
     fontSize: 14,
     color: '#666',
+    fontFamily: 'Nunito_400Regular',
   },
   avatarSection: {
     alignItems: 'center',
@@ -267,6 +268,7 @@ const styles = StyleSheet.create({
   avatarHint: {
     fontSize: 14,
     color: '#666',
+    fontFamily: 'Nunito_400Regular',
   },
   settingsCards: {
     gap: 12,
@@ -286,6 +288,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: '#666',
     marginBottom: 8,
+    fontFamily: 'Nunito_500Medium',
   },
   cardButton: {
     flexDirection: 'row',
@@ -296,11 +299,13 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '600',
     color: '#1a1a1a',
+    fontFamily: 'Nunito_600SemiBold',
   },
   cardSubtext: {
     fontSize: 14,
     color: '#666',
     marginTop: 4,
+    fontFamily: 'Nunito_400Regular',
   },
   chevron: {
     fontSize: 24,
@@ -318,6 +323,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     fontSize: 16,
     color: '#1a1a1a',
+    fontFamily: 'Nunito_400Regular',
   },
   saveButton: {
     width: 40,
@@ -340,6 +346,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: '#1a1a1a',
+    fontFamily: 'Nunito_700Bold',
   },
   modalOverlay: {
     flex: 1,
@@ -361,6 +368,7 @@ const styles = StyleSheet.create({
     color: '#1a1a1a',
     textAlign: 'center',
     marginBottom: 16,
+    fontFamily: 'Nunito_700Bold',
   },
   avatarGrid: {
     flexDirection: 'row',
@@ -420,6 +428,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#1a1a1a',
     width: 40,
+    fontFamily: 'Nunito_700Bold',
   },
   currencyOptionText: {
     flex: 1,
@@ -428,13 +437,24 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
     color: '#1a1a1a',
+    fontFamily: 'Nunito_600SemiBold',
   },
   currencyOptionName: {
     fontSize: 14,
     color: '#666',
+    fontFamily: 'Nunito_400Regular',
   },
   currencyCheck: {
     fontSize: 20,
     color: '#6366f1',
+  },
+  footer: {
+    alignItems: 'center',
+    paddingVertical: 32,
+  },
+  footerText: {
+    fontSize: 12,
+    color: '#999',
+    fontFamily: 'Nunito_400Regular',
   },
 });

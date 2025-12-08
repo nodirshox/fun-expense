@@ -127,10 +127,12 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     color: "#1a1a1a",
     marginBottom: 4,
+    fontFamily: 'Nunito_600SemiBold',
   },
   date: {
     fontSize: 13,
     color: "#666",
+    fontFamily: 'Nunito_400Regular',
   },
   rightSection: {
     alignItems: "flex-end",
@@ -139,6 +141,7 @@ const styles = StyleSheet.create({
   amount: {
     fontSize: 18,
     fontWeight: "bold",
+    fontFamily: 'Nunito_700Bold',
   },
   amountExpense: {
     color: "#F1635A",
