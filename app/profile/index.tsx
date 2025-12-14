@@ -8,10 +8,12 @@ import {
   TextInput,
   Modal,
   SafeAreaView,
+  Alert,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { ArrowLeft } from 'lucide-react-native';
 import { useSettings, AVATARS, CURRENCIES } from '@/hooks/useSettings';
+import { useAuth } from '@/contexts/AuthContext';
 import { Shadows } from '@/constants/theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
@@ -19,6 +21,7 @@ export default function ProfileScreen() {
   const router = useRouter();
   const insets = useSafeAreaInsets();
   const { settings, updateSettings } = useSettings();
+  const { logout, user } = useAuth();
   const [editingName, setEditingName] = useState(false);
   const [tempName, setTempName] = useState(settings.displayName);
   const [showAvatarPicker, setShowAvatarPicker] = useState(false);
@@ -42,6 +45,32 @@ export default function ProfileScreen() {
       currencySymbol: symbol,
     });
     setShowCurrencyPicker(false);
+  };
+
+  const handleLogout = () => {
+    Alert.alert(
+      'Logout',
+      'Are you sure you want to logout?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Logout',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              await logout();
+              router.replace('/onboarding');
+            } catch (error) {
+              console.error('Logout failed:', error);
+            }
+          },
+        },
+      ],
+      { cancelable: true }
+    );
   };
 
   return (
@@ -69,6 +98,14 @@ export default function ProfileScreen() {
             </TouchableOpacity>
             <Text style={styles.avatarHint}>Tap to change avatar</Text>
           </View>
+
+          {/* User Info */}
+          {user && (
+            <View style={[styles.card, { marginBottom: 12 }]}>
+              <Text style={styles.cardLabel}>Email</Text>
+              <Text style={styles.cardValue}>{user.email}</Text>
+            </View>
+          )}
 
           {/* Settings Cards */}
           <View style={styles.settingsCards}>
@@ -118,6 +155,10 @@ export default function ProfileScreen() {
               </View>
             </TouchableOpacity>
 
+            {/* Logout Button */}
+            <TouchableOpacity style={styles.logoutCard} onPress={handleLogout}>
+              <Text style={styles.logoutText}>Logout</Text>
+            </TouchableOpacity>
           </View>
 
           {/* Footer */}
@@ -438,6 +479,21 @@ const styles = StyleSheet.create({
   currencyCheck: {
     fontSize: 20,
     color: '#6366f1',
+  },
+  logoutCard: {
+    backgroundColor: '#FFF0F0',
+    borderRadius: 12,
+    padding: 16,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#FFE0E0',
+    marginTop: 8,
+  },
+  logoutText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FF3B30',
+    fontFamily: 'Nunito_600SemiBold',
   },
   footer: {
     alignItems: 'center',
