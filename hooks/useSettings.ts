@@ -6,20 +6,8 @@ const STORAGE_KEY = 'funexpense_settings';
 
 const defaultSettings: Settings = {
   displayName: 'Friend',
-  currency: 'USD',
-  currencySymbol: '$',
   avatar: '😊',
 };
-
-export const CURRENCIES = [
-  { code: 'USD', symbol: '$', name: 'US Dollar' },
-  { code: 'EUR', symbol: '€', name: 'Euro' },
-  { code: 'GBP', symbol: '£', name: 'British Pound' },
-  { code: 'JPY', symbol: '¥', name: 'Japanese Yen' },
-  { code: 'INR', symbol: '₹', name: 'Indian Rupee' },
-  { code: 'CAD', symbol: 'C$', name: 'Canadian Dollar' },
-  { code: 'AUD', symbol: 'A$', name: 'Australian Dollar' },
-];
 
 export const AVATARS = ['😊', '😎', '🤩', '🥳', '😇', '🤓', '🦊', '🐱', '🐶', '🦄', '🌟', '💎'];
 
@@ -63,7 +51,6 @@ export const useSettings = () => {
     updateSettings,
     reloadSettings,
     loading,
-    CURRENCIES,
     AVATARS,
   };
 };

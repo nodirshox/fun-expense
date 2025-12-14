@@ -13,7 +13,7 @@ import {
   View,
 } from "react-native";
 
-const OTP_LENGTH = 6;
+const OTP_LENGTH = 5;
 
 export default function VerifyOtpScreen() {
   const router = useRouter();
@@ -22,7 +22,7 @@ export default function VerifyOtpScreen() {
 
   const email = params.email as string;
 
-  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
+  const [otp, setOtp] = useState(["", "", "", "", ""]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [isResending, setIsResending] = useState(false);
@@ -77,7 +77,7 @@ export default function VerifyOtpScreen() {
     const code = otpCode || otp.join("");
 
     if (code.length !== OTP_LENGTH) {
-      setError("Please enter the complete 6-digit code");
+      setError("Please enter the complete 5-digit code");
       return;
     }
 
@@ -92,7 +92,7 @@ export default function VerifyOtpScreen() {
       router.replace("/(tabs)");
     } else {
       setError(result.error || "Failed to verify OTP");
-      setOtp(["", "", "", "", "", ""]);
+      setOtp(["", "", "", "", ""]);
       inputRefs.current[0]?.focus();
     }
   };
@@ -108,7 +108,7 @@ export default function VerifyOtpScreen() {
     setIsResending(false);
 
     if (result.success) {
-      setOtp(["", "", "", "", "", ""]);
+      setOtp(["", "", "", "", ""]);
       inputRefs.current[0]?.focus();
       startResendTimer();
     } else {

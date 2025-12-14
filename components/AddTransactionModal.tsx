@@ -22,6 +22,7 @@ interface AddTransactionModalProps {
     category: string;
     note: string;
     date: Date;
+    walletId: string;
   }) => void;
   onUpdate?: (id: string, updates: {
     amount: number;
@@ -32,6 +33,7 @@ interface AddTransactionModalProps {
   onDelete?: (id: string) => void;
   transaction?: Transaction;
   currencySymbol: string;
+  walletId: string;
 }
 
 export const AddTransactionModal = ({
@@ -41,7 +43,8 @@ export const AddTransactionModal = ({
   onUpdate,
   onDelete,
   transaction,
-  currencySymbol
+  currencySymbol,
+  walletId
 }: AddTransactionModalProps) => {
   const [type, setType] = useState<TransactionType>('expense');
   const [amount, setAmount] = useState('');
@@ -85,6 +88,7 @@ export const AddTransactionModal = ({
         category,
         note,
         date: new Date(),
+        walletId,
       });
     }
 

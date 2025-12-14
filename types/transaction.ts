@@ -7,6 +7,7 @@ export interface Transaction {
   category: string;
   note: string;
   date: Date;
+  walletId: string;
 }
 
 export interface Category {
@@ -19,7 +20,5 @@ export interface Category {
 
 export interface Settings {
   displayName: string;
-  currency: string;
-  currencySymbol: string;
   avatar: string;
 }

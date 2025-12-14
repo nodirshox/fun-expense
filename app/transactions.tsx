@@ -2,6 +2,7 @@ import { AddTransactionModal } from "@/components/AddTransactionModal";
 import { TransactionList } from "@/components/TransactionList";
 import { useSettings } from "@/hooks/useSettings";
 import { useTransactions } from "@/hooks/useTransactions";
+import { useWallets } from "@/hooks/useWallets";
 import { Transaction } from "@/types/transaction";
 import { useFocusEffect, useRouter } from "expo-router";
 import { ChevronDown, ChevronLeft } from "lucide-react-native";
@@ -29,6 +30,7 @@ export default function TransactionsScreen() {
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [isMonthPickerOpen, setIsMonthPickerOpen] = useState(false);
   const { settings, reloadSettings, loading: settingsLoading } = useSettings();
+  const { selectedWallet, selectedWalletId, isLoading: walletsLoading } = useWallets();
   const {
     transactions,
     addTransaction,
@@ -100,13 +102,15 @@ export default function TransactionsScreen() {
     setEditingTransaction(undefined);
   };
 
-  if (settingsLoading || transactionsLoading) {
+  if (settingsLoading || transactionsLoading || walletsLoading) {
     return (
       <View style={[styles.container, styles.centered]}>
         <ActivityIndicator size="large" color="#6366f1" />
       </View>
     );
   }
+
+  const displayCurrencyCode = selectedWallet?.currency || 'USD';
 
   return (
     <View style={styles.container}>
@@ -147,7 +151,7 @@ export default function TransactionsScreen() {
             <TransactionList
               transactions={filteredTransactions}
               onPress={handleTransactionPress}
-              currencySymbol={settings.currencySymbol}
+              currencySymbol={displayCurrencyCode}
             />
           ) : (
             <View style={styles.emptyState}>
@@ -168,7 +172,8 @@ export default function TransactionsScreen() {
         onUpdate={updateTransaction}
         onDelete={deleteTransaction}
         transaction={editingTransaction}
-        currencySymbol={settings.currencySymbol}
+        currencySymbol={displayCurrencyCode}
+        walletId={selectedWalletId}
       />
 
       {/* Month Picker Modal */}

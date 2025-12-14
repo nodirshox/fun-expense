@@ -62,20 +62,28 @@ export const useTransactions = () => {
     await saveTransactions(updated);
   };
 
-  const getBalance = () => {
-    return transactions.reduce((acc, t) => {
+  const getTransactionsByWallet = (walletId?: string) => {
+    if (!walletId) return transactions;
+    return transactions.filter(t => t.walletId === walletId);
+  };
+
+  const getBalance = (walletId?: string) => {
+    const relevantTransactions = getTransactionsByWallet(walletId);
+    return relevantTransactions.reduce((acc, t) => {
       return t.type === 'income' ? acc + t.amount : acc - t.amount;
     }, 0);
   };
 
-  const getTotalIncome = () => {
-    return transactions
+  const getTotalIncome = (walletId?: string) => {
+    const relevantTransactions = getTransactionsByWallet(walletId);
+    return relevantTransactions
       .filter(t => t.type === 'income')
       .reduce((acc, t) => acc + t.amount, 0);
   };
 
-  const getTotalExpenses = () => {
-    return transactions
+  const getTotalExpenses = (walletId?: string) => {
+    const relevantTransactions = getTransactionsByWallet(walletId);
+    return relevantTransactions
       .filter(t => t.type === 'expense')
       .reduce((acc, t) => acc + t.amount, 0);
   };
@@ -85,6 +93,7 @@ export const useTransactions = () => {
     addTransaction,
     updateTransaction,
     deleteTransaction,
+    getTransactionsByWallet,
     getBalance,
     getTotalIncome,
     getTotalExpenses,

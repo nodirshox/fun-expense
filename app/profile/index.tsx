@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { ArrowLeft } from 'lucide-react-native';
-import { useSettings, AVATARS, CURRENCIES } from '@/hooks/useSettings';
+import { useSettings, AVATARS } from '@/hooks/useSettings';
 import { useAuth } from '@/contexts/AuthContext';
 import { Shadows } from '@/constants/theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -25,7 +25,6 @@ export default function ProfileScreen() {
   const [editingName, setEditingName] = useState(false);
   const [tempName, setTempName] = useState(settings.displayName);
   const [showAvatarPicker, setShowAvatarPicker] = useState(false);
-  const [showCurrencyPicker, setShowCurrencyPicker] = useState(false);
 
   const handleNameSave = async () => {
     if (tempName.trim()) {
@@ -37,14 +36,6 @@ export default function ProfileScreen() {
   const handleAvatarSelect = async (avatar: string) => {
     await updateSettings({ avatar });
     setShowAvatarPicker(false);
-  };
-
-  const handleCurrencySelect = async (code: string, symbol: string) => {
-    await updateSettings({
-      currency: code,
-      currencySymbol: symbol,
-    });
-    setShowCurrencyPicker(false);
   };
 
   const handleLogout = () => {
@@ -140,21 +131,6 @@ export default function ProfileScreen() {
               )}
             </View>
 
-            {/* Currency */}
-            <TouchableOpacity
-              style={styles.card}
-              onPress={() => setShowCurrencyPicker(true)}
-            >
-              <Text style={styles.cardLabel}>Currency</Text>
-              <View style={styles.cardButton}>
-                <View style={styles.currencyDisplay}>
-                  <Text style={styles.currencySymbol}>{settings.currencySymbol}</Text>
-                  <Text style={styles.cardValue}>{settings.currency}</Text>
-                </View>
-                <Text style={styles.chevron}>›</Text>
-              </View>
-            </TouchableOpacity>
-
             {/* Logout Button */}
             <TouchableOpacity style={styles.logoutCard} onPress={handleLogout}>
               <Text style={styles.logoutText}>Logout</Text>
@@ -198,46 +174,6 @@ export default function ProfileScreen() {
             </View>
           </View>
         </TouchableOpacity>
-      </Modal>
-
-      {/* Currency Picker Modal */}
-      <Modal
-        visible={showCurrencyPicker}
-        transparent={true}
-        animationType="slide"
-        onRequestClose={() => setShowCurrencyPicker(false)}
-      >
-        <View style={styles.currencyModalContainer}>
-          <TouchableOpacity
-            style={styles.currencyOverlay}
-            activeOpacity={1}
-            onPress={() => setShowCurrencyPicker(false)}
-          />
-          <View style={styles.currencyModal}>
-            <Text style={styles.modalTitle}>Select Currency</Text>
-            <ScrollView style={styles.currencyList} showsVerticalScrollIndicator={false}>
-              {CURRENCIES.map((currency) => (
-                <TouchableOpacity
-                  key={currency.code}
-                  style={[
-                    styles.currencyOption,
-                    settings.currency === currency.code && styles.currencyOptionActive,
-                  ]}
-                  onPress={() => handleCurrencySelect(currency.code, currency.symbol)}
-                >
-                  <Text style={styles.currencyOptionSymbol}>{currency.symbol}</Text>
-                  <View style={styles.currencyOptionText}>
-                    <Text style={styles.currencyOptionCode}>{currency.code}</Text>
-                    <Text style={styles.currencyOptionName}>{currency.name}</Text>
-                  </View>
-                  {settings.currency === currency.code && (
-                    <Text style={styles.currencyCheck}>✓</Text>
-                  )}
-                </TouchableOpacity>
-              ))}
-            </ScrollView>
-          </View>
-        </View>
       </Modal>
     </View>
   );
@@ -369,17 +305,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#FFFFFF',
   },
-  currencyDisplay: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-  },
-  currencySymbol: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#1a1a1a',
-    fontFamily: 'Nunito_700Bold',
-  },
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -422,63 +347,6 @@ const styles = StyleSheet.create({
   },
   avatarOptionEmoji: {
     fontSize: 32,
-  },
-  currencyModalContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
-  currencyOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-  currencyModal: {
-    backgroundColor: '#FFFFFF',
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
-    padding: 24,
-    maxHeight: '70%',
-  },
-  currencyList: {
-    maxHeight: 400,
-  },
-  currencyOption: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 16,
-    padding: 16,
-    backgroundColor: '#F5F5F5',
-    borderRadius: 12,
-    marginBottom: 8,
-  },
-  currencyOptionActive: {
-    backgroundColor: '#E8E5FF',
-    borderWidth: 2,
-    borderColor: '#6366f1',
-  },
-  currencyOptionSymbol: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#1a1a1a',
-    width: 40,
-    fontFamily: 'Nunito_700Bold',
-  },
-  currencyOptionText: {
-    flex: 1,
-  },
-  currencyOptionCode: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#1a1a1a',
-    fontFamily: 'Nunito_600SemiBold',
-  },
-  currencyOptionName: {
-    fontSize: 14,
-    color: '#666',
-    fontFamily: 'Nunito_400Regular',
-  },
-  currencyCheck: {
-    fontSize: 20,
-    color: '#6366f1',
   },
   logoutCard: {
     backgroundColor: '#FFF0F0',

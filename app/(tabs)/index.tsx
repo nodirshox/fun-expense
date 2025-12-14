@@ -5,8 +5,10 @@ import { PieChart } from 'lucide-react-native';
 import { BalanceCard } from '@/components/BalanceCard';
 import { TransactionList } from '@/components/TransactionList';
 import { AddTransactionModal } from '@/components/AddTransactionModal';
+import { WalletSelector } from '@/components/WalletSelector';
 import { useTransactions } from '@/hooks/useTransactions';
 import { useSettings } from '@/hooks/useSettings';
+import { useWallets } from '@/hooks/useWallets';
 import { Transaction } from '@/types/transaction';
 import { Shadows } from '@/constants/theme';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -25,8 +27,18 @@ export default function HomeScreen() {
     getBalance,
     getTotalIncome,
     getTotalExpenses,
+    getTransactionsByWallet,
     loading: transactionsLoading,
   } = useTransactions();
+  const {
+    wallets,
+    selectedWallet,
+    selectedWalletId,
+    selectWallet,
+    addWallet,
+    deleteWallet,
+    isLoading: walletsLoading,
+  } = useWallets();
 
   // Reload settings when screen comes into focus
   useFocusEffect(
@@ -50,13 +62,20 @@ export default function HomeScreen() {
     setEditingTransaction(undefined);
   };
 
-  if (settingsLoading || transactionsLoading) {
+  if (settingsLoading || transactionsLoading || walletsLoading) {
     return (
       <View style={[styles.container, styles.centered]}>
         <ActivityIndicator size="large" color="#6366f1" />
       </View>
     );
   }
+
+  // Get wallet-specific data
+  const walletTransactions = getTransactionsByWallet(selectedWalletId);
+  const walletBalance = getBalance(selectedWalletId);
+  const walletIncome = getTotalIncome(selectedWalletId);
+  const walletExpenses = getTotalExpenses(selectedWalletId);
+  const displayCurrencyCode = selectedWallet?.currency || 'USD';
 
   return (
     <View style={styles.container}>
@@ -76,13 +95,24 @@ export default function HomeScreen() {
             </TouchableOpacity>
           </View>
 
+          {/* Wallet Selector */}
+          <View style={styles.walletSection}>
+            <WalletSelector
+              wallets={wallets}
+              selectedWallet={selectedWallet}
+              onSelect={selectWallet}
+              onAdd={addWallet}
+              onDelete={deleteWallet}
+            />
+          </View>
+
           {/* Balance Card */}
           <View style={styles.balanceSection}>
             <BalanceCard
-              balance={getBalance()}
-              income={getTotalIncome()}
-              expenses={getTotalExpenses()}
-              currencySymbol={settings.currencySymbol}
+              balance={walletBalance}
+              income={walletIncome}
+              expenses={walletExpenses}
+              currencySymbol={displayCurrencyCode}
             />
           </View>
 
@@ -95,9 +125,9 @@ export default function HomeScreen() {
               </TouchableOpacity>
             </View>
             <TransactionList
-              transactions={transactions.slice(0, 3)}
+              transactions={walletTransactions.slice(0, 3)}
               onPress={handleTransactionPress}
-              currencySymbol={settings.currencySymbol}
+              currencySymbol={displayCurrencyCode}
             />
           </View>
         </View>
@@ -116,7 +146,8 @@ export default function HomeScreen() {
         onUpdate={updateTransaction}
         onDelete={deleteTransaction}
         transaction={editingTransaction}
-        currencySymbol={settings.currencySymbol}
+        currencySymbol={displayCurrencyCode}
+        walletId={selectedWalletId}
       />
     </View>
   );
@@ -183,6 +214,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 4,
     elevation: 2,
+  },
+  walletSection: {
+    marginBottom: 16,
   },
   balanceSection: {
     marginBottom: 24,

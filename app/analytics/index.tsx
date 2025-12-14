@@ -3,6 +3,7 @@ import { useRouter } from 'expo-router';
 import { ArrowLeft } from 'lucide-react-native';
 import { useTransactions } from '@/hooks/useTransactions';
 import { useSettings } from '@/hooks/useSettings';
+import { useWallets } from '@/hooks/useWallets';
 import { getCategoryById } from '@/data/categories';
 import { CategoryList } from '@/components/CategoryList';
 import { DonutChart } from '@/components/DonutChart';
@@ -28,6 +29,7 @@ export default function AnalyticsScreen() {
   const insets = useSafeAreaInsets();
   const { transactions, getTotalExpenses, getTotalIncome, loading: transactionsLoading } = useTransactions();
   const { settings, loading: settingsLoading } = useSettings();
+  const { selectedWallet, isLoading: walletsLoading } = useWallets();
 
   const getCategoryData = (type: 'expense' | 'income'): CategoryData[] => {
     const filtered = transactions.filter(t => t.type === type);
@@ -49,7 +51,7 @@ export default function AnalyticsScreen() {
       .sort((a, b) => b.value - a.value);
   };
 
-  if (settingsLoading || transactionsLoading) {
+  if (settingsLoading || transactionsLoading || walletsLoading) {
     return (
       <View style={[styles.container, styles.centered]}>
         <ActivityIndicator size="large" color="#6366f1" />
@@ -61,6 +63,7 @@ export default function AnalyticsScreen() {
   const incomeData = getCategoryData('income');
   const totalExpenses = getTotalExpenses();
   const totalIncome = getTotalIncome();
+  const displayCurrencyCode = selectedWallet?.currency || 'USD';
 
   return (
     <View style={styles.container}>
@@ -90,7 +93,7 @@ export default function AnalyticsScreen() {
                   <View style={styles.sectionHeader}>
                     <Text style={styles.sectionTitle}>💸 Expenses</Text>
                     <Text style={styles.expenseTotal}>
-                      {formatCurrency(totalExpenses, settings.currencySymbol)}
+                      {formatCurrency(totalExpenses, displayCurrencyCode)}
                     </Text>
                   </View>
 
@@ -101,7 +104,7 @@ export default function AnalyticsScreen() {
                         size={220}
                         strokeWidth={40}
                         gap={8}
-                        currencySymbol={settings.currencySymbol}
+                        currencySymbol={displayCurrencyCode}
                       />
                     </View>
                   </TouchableWithoutFeedback>
@@ -109,7 +112,7 @@ export default function AnalyticsScreen() {
                   <CategoryList
                     data={expenseData}
                     total={totalExpenses}
-                    currencySymbol={settings.currencySymbol}
+                    currencySymbol={displayCurrencyCode}
                   />
                 </View>
               )}
@@ -120,7 +123,7 @@ export default function AnalyticsScreen() {
                   <View style={styles.sectionHeader}>
                     <Text style={styles.sectionTitle}>💰 Income</Text>
                     <Text style={styles.incomeTotal}>
-                      {formatCurrency(totalIncome, settings.currencySymbol)}
+                      {formatCurrency(totalIncome, displayCurrencyCode)}
                     </Text>
                   </View>
 
@@ -131,7 +134,7 @@ export default function AnalyticsScreen() {
                         size={220}
                         strokeWidth={40}
                         gap={8}
-                        currencySymbol={settings.currencySymbol}
+                        currencySymbol={displayCurrencyCode}
                       />
                     </View>
                   </TouchableWithoutFeedback>
@@ -139,7 +142,7 @@ export default function AnalyticsScreen() {
                   <CategoryList
                     data={incomeData}
                     total={totalIncome}
-                    currencySymbol={settings.currencySymbol}
+                    currencySymbol={displayCurrencyCode}
                   />
                 </View>
               )}
